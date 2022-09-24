@@ -7,57 +7,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assignment 2</title>
     <style>
-
         body {
             box-sizing: border-box;
             font-family: sans-serif;
         }
+
+        h2 {
+            text-align: center
+        }
+
         #main {
             margin-top: 40px;
             text-align: center;
             display: block;
         }
-        #wrapper{
-            display: block; 
+
+        #wrapper {
+            display: block;
             text-align: center;
-            margin-top: 20px; 
+            margin-top: 20px;
         }
-        .list{
+
+        #students {
             display: inline-block;
-            text-align: left;             
+            text-align: left;
         }
+
         #load {
             margin-left: 10px;
-            padding: 10px 30px 10px 30px;
+            padding: 10px;
         }
+
         #clear {
             padding: 10px 30px 10px 30px;
-            margin-left: 150px;
+            margin-left: 50px;
         }
-        
+
         form input {
             width: 100%;
             box-sizing: border-box;
-            display: block;    
-        }   
-
+            display: block;
+        }
     </style>
 </head>
 
 <body>
     <div id="main">
-        <h2 style="text-align: center">STUDENTS</h2>
+        <h2>STUDENTS</h2>
         <br>
-        <div style="text-align: center">        
-            <input id="load" type="button" value="LOAD LIST" onclick="getStudents()" />
+        <div>
+            <input id="load" type="button" value="LOAD STUDENTS" onclick="getStudents()" />
             <input id="clear" type="button" value="CLEAR LIST" onclick="clearList()" />
-            <br>
             <div id="wrapper">
-                <ul class="list" id="students"></ul>
-                <div id="name"></div>
-                <div id="address"></div>
-                <div id="phone"></div>
-                <div id="course"></div>
+                <div id="students"></div>
             </div>
         </div>
     </div>
@@ -65,7 +67,6 @@
     <script type="text/javascript">
 
         class Student {
-
             constructor(name, address, phone, course) {
                 this.name = name;
                 this.address = address;
@@ -74,16 +75,15 @@
             }
 
             getInfo() {
-                return "Name: " + this.name + "\n" +
-                    "Address: " + this.address + "\n" +
-                    "Phone: " + this.phone + "\n" +
+                return "<br>" +
+                    "Name: " + this.name + "<br>" +
+                    "Address: " + this.address + "<br>" +
+                    "Phone: " + this.phone + "<br>" +
                     "Course: " + this.course;
             }
-
         }
 
         function createStudents(studentValues) {
-
             let students = [];
 
             let name = 0;
@@ -118,6 +118,7 @@
                     student = new Student();
                 }
             }
+
             return students;
         }
 
@@ -144,20 +145,9 @@
             studentList.innerHTML = "";
 
             students.forEach(student => {
-                let name = document.createElement("div");
-                name.innerHTML = "Name: " + student.name;
-                studentList.appendChild(name);
-                let address = document.createElement("div");
-                address.innerHTML = "Address: " + student.address;
-                studentList.appendChild(address);
-                let phone = document.createElement("div");
-                phone.innerHTML = "Phone: " + student.phone;
-                studentList.appendChild(phone);
-                let course = document.createElement("div");
-                course.innerHTML = "Course: " + student.course;
-                studentList.appendChild(course);
-                let space = document.createElement("br");
-                studentList.appendChild(space);
+                let studentElement = document.createElement("div");
+                studentElement.innerHTML = student.getInfo();
+                studentList.appendChild(studentElement);
             });
         };
 
