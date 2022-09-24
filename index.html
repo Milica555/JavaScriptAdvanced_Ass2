@@ -6,32 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assignment 2</title>
-    <script type="text/javascript" src="js/studentsFetch.js"></script>
     <style>
+
         body {
             box-sizing: border-box;
             font-family: sans-serif;
         }
         #main {
+            margin-top: 40px;
             text-align: center;
             display: block;
         }
         #wrapper{
             display: block; 
             text-align: center;
-            margin-top: 20px;
-          
+            margin-top: 20px; 
         }
         .list{
             display: inline-block;
-            text-align: left;
-           
-            
+            text-align: left;             
         }
         #load {
             margin-left: 10px;
-            padding: 10px;
-           
+            padding: 10px 30px 10px 30px;
         }
         #clear {
             padding: 10px 30px 10px 30px;
@@ -41,9 +38,9 @@
         form input {
             width: 100%;
             box-sizing: border-box;
-            display: block;
-            
-        }         
+            display: block;    
+        }   
+
     </style>
 </head>
 
@@ -52,7 +49,7 @@
         <h2 style="text-align: center">STUDENTS</h2>
         <br>
         <div style="text-align: center">        
-            <input id="load" type="button" value="LOAD STUDENTS" onclick="getStudents()" />
+            <input id="load" type="button" value="LOAD LIST" onclick="getStudents()" />
             <input id="clear" type="button" value="CLEAR LIST" onclick="clearList()" />
             <br>
             <div id="wrapper">
@@ -98,24 +95,24 @@
 
             let student = new Student();
 
-            for (let index = 0; index < studentValues.length; index++) {
-                if (index === name) {
-                    student.name = studentValues[index];
+            for (let i = 0; i < studentValues.length; i++) {
+                if (i === name) {
+                    student.name = studentValues[i];
                     name += counter;
                 }
 
-                if (index === address) {
-                    student.address = studentValues[index];
+                if (i === address) {
+                    student.address = studentValues[i];
                     address += counter;
                 }
 
-                if (index === phone) {
-                    student.phone = studentValues[index];
+                if (i === phone) {
+                    student.phone = studentValues[i];
                     phone += counter;
                 }
 
-                if (index === course) {
-                    student.course = studentValues[index];
+                if (i === course) {
+                    student.course = studentValues[i];
                     course += counter;
                     students.push(student);
                     student = new Student();
