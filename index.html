@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 2</title>
+    <script type="text/javascript" src="js/studentsFetch.js"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        #main {
+            text-align: center;
+            display: block;
+        }
+        #wrapper{
+            display: block; 
+            text-align: center;
+            margin-top: 20px;
+          
+        }
+        .list{
+            display: inline-block;
+            text-align: left;
+           
+            
+        }
+        #load {
+            margin-left: 10px;
+            padding: 10px;
+           
+        }
+        #clear {
+            padding: 10px 30px 10px 30px;
+            margin-left: 150px;
+        }
+        
+        form input {
+            width: 100%;
+            box-sizing: border-box;
+            display: block;
+            
+        }         
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <h2 style="text-align: center">STUDENTS</h2>
+        <br>
+        <div style="text-align: center">        
+            <input id="load" type="button" value="LOAD STUDENTS" onclick="getStudents()" />
+            <input id="clear" type="button" value="CLEAR LIST" onclick="clearList()" />
+            <br>
+            <div id="wrapper">
+                <ul class="list" id="students"></ul>
+                <div id="name"></div>
+                <div id="address"></div>
+                <div id="phone"></div>
+                <div id="course"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        class Student {
+
+            constructor(name, address, phone, course) {
+                this.name = name;
+                this.address = address;
+                this.phone = phone;
+                this.course = course;
+            }
+
+            getInfo() {
+                return "Name: " + this.name + "\n" +
+                    "Address: " + this.address + "\n" +
+                    "Phone: " + this.phone + "\n" +
+                    "Course: " + this.course;
+            }
+
+        }
+
+        function createStudents(studentValues) {
+
+            let students = [];
+
+            let name = 0;
+            let address = 1;
+            let phone = 2;
+            let course = 3;
+
+            const counter = 4;
+
+            let student = new Student();
+
+            for (let index = 0; index < studentValues.length; index++) {
+                if (index === name) {
+                    student.name = studentValues[index];
+                    name += counter;
+                }
+
+                if (index === address) {
+                    student.address = studentValues[index];
+                    address += counter;
+                }
+
+                if (index === phone) {
+                    student.phone = studentValues[index];
+                    phone += counter;
+                }
+
+                if (index === course) {
+                    student.course = studentValues[index];
+                    course += counter;
+                    students.push(student);
+                    student = new Student();
+                }
+            }
+            return students;
+        }
+
+        async function dataFetch(url) {
+
+            const data = await fetch(url).then(function (response) {
+                if (response.status !== 200) {
+                    throw Error("Error while reading file.");
+                }
+                return response.text();
+            });
+
+            return data;
+        }
+
+        async function getStudents() {
+            const url = "https://v-dresevic.github.io/Advanced-JavaScript-Programming/data/students.txt";
+
+            let data = await dataFetch(url);
+            let students = createStudents(data.split("\n"));
+
+            let studentList = document.getElementById("students");
+
+            studentList.innerHTML = "";
+
+            students.forEach(student => {
+                let name = document.createElement("div");
+                name.innerHTML = "Name: " + student.name;
+                studentList.appendChild(name);
+                let address = document.createElement("div");
+                address.innerHTML = "Address: " + student.address;
+                studentList.appendChild(address);
+                let phone = document.createElement("div");
+                phone.innerHTML = "Phone: " + student.phone;
+                studentList.appendChild(phone);
+                let course = document.createElement("div");
+                course.innerHTML = "Course: " + student.course;
+                studentList.appendChild(course);
+                let space = document.createElement("br");
+                studentList.appendChild(space);
+            });
+        };
+
+        async function clearList() {
+            let studentList = document.getElementById("students");
+            studentList.innerHTML = "";
+        }
+
+    </script>
+</body>
+
+</html>
